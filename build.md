@@ -1,0 +1,2 @@
+ - [x] Set up chakara theme file
+ - [] create layout component
