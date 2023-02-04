@@ -1,3 +1,3 @@
  - [x] Set up chakara theme file
  - [x] create layout component
- - [] create Search input component
+ - [x] create Search input component

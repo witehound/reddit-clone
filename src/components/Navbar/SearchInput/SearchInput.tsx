@@ -6,7 +6,7 @@ import React from "react";
 type SearchInputProps = {};
 const SearchInput = ({}: SearchInputProps) => {
   return (
-    <Flex flexGrow={1} mr={2} align={"center"}>
+    <Flex flexGrow={1} mr={2} align={"center"} ml={"2"}>
       <InputGroup>
         <InputLeftElement
           pointerEvents="none"
