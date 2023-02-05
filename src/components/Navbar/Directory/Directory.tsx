@@ -1,17 +1,7 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import {
-  Menu,
-  MenuButton,
-  MenuItem,
-  MenuList,
-  Icon,
-  Flex,
-  Text,
-} from "@chakra-ui/react";
-import { User } from "firebase/auth";
-import { FaRedditSquare } from "react-icons/fa";
+import { Menu, MenuButton, MenuList, Icon, Flex, Text } from "@chakra-ui/react";
 import { TiHome } from "react-icons/ti";
-
+import Communities from "./Communities/Communities";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/src/components/atoms";
 
@@ -49,7 +39,7 @@ const Directory = () => {
         </Flex>
 
         <MenuList borderColor={"gray.200"}>
-          <>communities</>
+          <Communities />
         </MenuList>
       </Menu>
     </div>
