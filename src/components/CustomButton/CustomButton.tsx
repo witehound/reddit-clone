@@ -1,5 +1,5 @@
 import { Button } from "@chakra-ui/react";
-import { memo } from "react";
+import { ReactNode, memo } from "react";
 
 type ButtonProps = {
   text: string;
@@ -12,6 +12,7 @@ type ButtonProps = {
   handleClick?: () => void;
   type?: "button" | "submit" | "reset" | undefined;
   mb?: any;
+  children?: ReactNode;
 };
 
 const CustomButton = ({
@@ -25,6 +26,7 @@ const CustomButton = ({
   handleClick,
   type = "button",
   mb,
+  children,
 }: ButtonProps) => {
   return (
     <Button
@@ -39,6 +41,7 @@ const CustomButton = ({
       onClick={handleClick}
     >
       {text}
+      {children}
     </Button>
   );
 };

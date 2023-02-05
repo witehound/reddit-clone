@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { useRecoilState } from "recoil";
 import { authModalState } from "../../atoms";
-import Login from "./Login/Login";
 import AuthInput from "./AuthInput/AuthInput";
 
 const AuthModal = () => {
