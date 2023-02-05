@@ -7,3 +7,4 @@
  - [x] added authinput component
  - [x] added login componenet jsx layout and chakra styling without functionality
  - [x] added sign up componenet jsx layout and chakra styling without functionality
+ - [x] added firebase to app and .env file with firabase config
