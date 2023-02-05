@@ -1,6 +1,5 @@
 import { atom } from "recoil";
-
-export interface AuthModalFace {
+export  interface AuthModalFace {
     open: boolean,
     view : "login" | "signup" | "resetpassword"
 }
