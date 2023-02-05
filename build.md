@@ -1,3 +1,5 @@
  - [x] Set up chakara theme file
  - [x] create layout component
  - [x] create Search input component
+ - [x] creeated custombuttons and auth buttons
+ - [x] created authmodalstate with recoil
