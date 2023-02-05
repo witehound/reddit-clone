@@ -3,3 +3,5 @@
  - [x] create Search input component
  - [x] creeated custombuttons and auth buttons
  - [x] created authmodalstate with recoil
+ - [x] added setAuthModal state to authBUttons
+ - [x] added authinput component
