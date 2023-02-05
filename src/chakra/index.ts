@@ -2,6 +2,7 @@ import { extendTheme } from '@chakra-ui/react'
 import '@fontsource/open-sans/300.css'
 import '@fontsource/open-sans/400.css'
 import '@fontsource/open-sans/700.css'
+import { Button } from './button'
 
 const config = {
   colors: {
@@ -17,7 +18,10 @@ const config = {
     body: {
       bg : "gray.200"
     }
-  })
+  }),
+  components: {
+    Button
+  }
 }
 
 const theme = extendTheme(config)
