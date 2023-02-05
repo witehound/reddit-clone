@@ -10,7 +10,7 @@ const AuthButtons = () => {
   return (
     <>
       <CustomButton
-        text="Login"
+        text="Log In"
         varient="outline"
         height={"28px"}
         display={{ base: "none", sm: "flex" }}
@@ -19,7 +19,7 @@ const AuthButtons = () => {
         handleClick={() => setAuthModal({ open: true, view: "login" })}
       />
       <CustomButton
-        text="Sign up"
+        text="Sign Up"
         height={"28px"}
         display={{ base: "none", sm: "flex" }}
         width={{ base: "70px", md: "110px" }}

@@ -85,7 +85,7 @@ const Login = () => {
         height={"30px"}
         mb={2}
       />
-      <Flex fontSize={"9pt"} justifyContent={"center"} gap={5}>
+      <Flex fontSize={"9pt"} justifyContent={"center"} gap={4}>
         <Text>New Here ?</Text>
         <Text
           color={"blue.500"}
