@@ -3,6 +3,8 @@ import { Flex, Input, Text } from "@chakra-ui/react";
 import CustomButton from "@/src/components/CustomButton/CustomButton";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/src/components/atoms";
+import { fireBaseAuth, fireBaseErrors } from "@/src/service";
+import { useSignInWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 type loginFormType = {
   email: string;
@@ -16,8 +18,12 @@ const Login = () => {
     password: "",
   });
 
+  const [signInWithEmailAndPassword, user, loading, userError] =
+    useSignInWithEmailAndPassword(fireBaseAuth);
+
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    signInWithEmailAndPassword(loginForm.email, loginForm.password);
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -77,6 +83,11 @@ const Login = () => {
         outline={"none"}
         borderColor={"blue.400"}
       />
+
+      <Text textAlign={"center"} color={"red"} fontSize={"9pt"} mb={2}>
+        {fireBaseErrors[userError?.message as keyof typeof fireBaseErrors]}
+      </Text>
+
       <CustomButton
         type="submit"
         text="Log In"
@@ -84,6 +95,7 @@ const Login = () => {
         width={"100%"}
         height={"30px"}
         mb={2}
+        isLoading={loading}
       />
       <Flex fontSize={"9pt"} justifyContent={"center"} gap={4}>
         <Text>New Here ?</Text>

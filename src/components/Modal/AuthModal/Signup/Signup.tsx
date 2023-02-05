@@ -33,6 +33,14 @@ const Signup = () => {
       return setError("Passwords to weak");
 
     createUserWithEmailAndPassword(singupForm.email, singupForm.password);
+    if (!userError && !error) {
+      setSignupForm({
+        email: "",
+        password: "",
+        confirmpassword: "",
+      });
+      setError(undefined);
+    }
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
