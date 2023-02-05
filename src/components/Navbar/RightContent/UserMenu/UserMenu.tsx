@@ -10,12 +10,19 @@ import {
 import { User } from "firebase/auth";
 import { FaRedditSquare } from "react-icons/fa";
 import { VscAccount } from "react-icons/vsc";
+import { CgProfile } from "react-icons/cg";
+import { MdOutlineLogout } from "react-icons/md";
+import { fireBaseAuth } from "../../../../service/index";
+import { signOut } from "firebase/auth";
 
 type UserMenuType = {
   user: User | null | undefined;
 };
 
 const UserMenu = ({ user }: UserMenuType) => {
+  const signUserOut = () => {
+    signOut(fireBaseAuth);
+  };
   return (
     <div>
       <Menu>
@@ -53,9 +60,46 @@ const UserMenu = ({ user }: UserMenuType) => {
           </MenuButton>
         </Flex>
 
-        <MenuList>
-          <MenuItem>Download</MenuItem>
-          <MenuItem>Create a Copy</MenuItem>
+        <MenuList borderColor={"gray.200"}>
+          {user ? (
+            <>
+              <MenuItem
+                fontSize={"10pt"}
+                fontWeight={700}
+                _hover={{ bg: "blue.500", color: "white" }}
+              >
+                <Flex align={"center"}>
+                  <Icon as={CgProfile} fontSize={20} mr={2} />
+                  Profile
+                </Flex>
+              </MenuItem>
+              <Flex bg={"gray.200"} flexGrow={1} height={".5px"} />
+              <MenuItem
+                fontSize={"10pt"}
+                fontWeight={700}
+                _hover={{ bg: "blue.500", color: "white" }}
+                onClick={signUserOut}
+              >
+                <Flex align={"center"}>
+                  <Icon as={MdOutlineLogout} fontSize={20} mr={2} />
+                  Log Out
+                </Flex>
+              </MenuItem>
+            </>
+          ) : (
+            <>
+              <MenuItem
+                fontSize={"10pt"}
+                fontWeight={700}
+                _hover={{ bg: "blue.500", color: "white" }}
+              >
+                <Flex align={"center"}>
+                  <Icon as={CgProfile} fontSize={20} mr={2} />
+                  Profile
+                </Flex>
+              </MenuItem>
+            </>
+          )}
         </MenuList>
       </Menu>
     </div>

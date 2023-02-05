@@ -12,3 +12,4 @@
  - [x] added login user with firebase and using google oauth to sign up or log in
  - [x] added reset password component
  - [x] added all icons for navbar
+ - [x] added signout functionality in the menu list 
