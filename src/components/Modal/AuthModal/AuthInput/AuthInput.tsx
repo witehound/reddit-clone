@@ -8,8 +8,8 @@ const AuthInput = () => {
   const authModal = useRecoilValue(authModalState);
   return (
     <Flex direction={"column"} align={"center"} width={"100%"} mt={4}>
-      {authModal.view ? <Login /> : null}
-      {authModal.view ? <Signup /> : null}
+      {authModal.view === "login" ? <Login /> : null}
+      {authModal.view === "signup" ? <Signup /> : null}
     </Flex>
   );
 };

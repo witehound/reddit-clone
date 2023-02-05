@@ -5,3 +5,4 @@
  - [x] created authmodalstate with recoil
  - [x] added setAuthModal state to authBUttons
  - [x] added authinput component
+ - [x] added login componenet jsx layout and chakra styling without functionality

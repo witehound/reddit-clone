@@ -18,14 +18,21 @@ const SearchInput = ({}: SearchInputProps) => {
           border={".5px solid"}
           placeholder="Search Reddit"
           _placeholder={{ color: "gray.500" }}
-          _hover={{ bg: "white", border: "1px solid", borderColor: "blue.500" }}
+          _-hover={{
+            bg: "white",
+            border: "1px solid",
+            borderColor: "blue.500",
+          }}
           _focus={{
             outline: "none",
+            bg: "white",
             border: "1px solid",
-            borderColor: "blue.5",
+            borderColor: "blue.500",
           }}
           height={"30px"}
           bg={"gray.50"}
+          outline={"none"}
+          borderColor={"blue.400"}
         />
       </InputGroup>
     </Flex>

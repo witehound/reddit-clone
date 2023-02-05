@@ -24,7 +24,7 @@ const AuthModal = () => {
       <Modal isOpen={authModal.open} onClose={handleClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>
+          <ModalHeader textAlign={"center"}>
             {authModal.view === "login" && "Login"}
             {authModal.view === "signup" && "Sign Up"}
             {authModal.view === "resetpassword" && "Reset Password"}
@@ -35,6 +35,7 @@ const AuthModal = () => {
             flexDirection={"column"}
             alignItems={"center"}
             justifyContent={"center"}
+            pb={6}
           >
             <Flex
               direction={"column"}

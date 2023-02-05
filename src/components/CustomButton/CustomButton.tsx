@@ -8,7 +8,10 @@ type ButtonProps = {
   display?: any;
   width?: any;
   mr?: number;
+  border?: any;
   handleClick?: () => void;
+  type?: "button" | "submit" | "reset" | undefined;
+  mb?: any;
 };
 
 const CustomButton = ({
@@ -18,15 +21,21 @@ const CustomButton = ({
   display,
   width,
   mr,
+  border,
   handleClick,
+  type = "button",
+  mb,
 }: ButtonProps) => {
   return (
     <Button
+      type={type}
       variant={varient}
       height={height}
       display={display}
       width={width}
       mr={mr}
+      border={border}
+      mb={mb}
       onClick={handleClick}
     >
       {text}
