@@ -97,6 +97,21 @@ const Login = () => {
         mb={2}
         isLoading={loading}
       />
+      <Flex justifyContent="center" mb={2}>
+        <Text fontSize="9pt" mr={1}>
+          Forgot your password?
+        </Text>
+        <Text
+          fontSize="9pt"
+          color="blue.500"
+          cursor="pointer"
+          onClick={() => {
+            setAutModal((prev) => ({ ...prev, view: "resetpassword" }));
+          }}
+        >
+          Reset
+        </Text>
+      </Flex>
       <Flex fontSize={"9pt"} justifyContent={"center"} gap={4}>
         <Text>New Here ?</Text>
         <Text

@@ -10,13 +10,22 @@ import {
 import { useRecoilState } from "recoil";
 import { authModalState } from "../../atoms";
 import AuthInput from "./AuthInput/AuthInput";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { fireBaseAuth } from "@/src/service";
+import { useEffect } from "react";
+import ResetPassword from "./ResetPassword/ResetPassword";
 
 const AuthModal = () => {
   const [authModal, setAuthModal] = useRecoilState(authModalState);
+  const [user, loading, error] = useAuthState(fireBaseAuth);
 
   const handleClose = () => {
     setAuthModal((prev) => ({ ...prev, open: false }));
   };
+
+  useEffect(() => {
+    if (user) handleClose();
+  }, [user]);
 
   return (
     <>
@@ -42,7 +51,11 @@ const AuthModal = () => {
               justifyContent={"center"}
               width={"70%"}
             >
-              <AuthInput />
+              {authModal.view === "login" || authModal.view === "signup" ? (
+                <AuthInput />
+              ) : (
+                <ResetPassword />
+              )}
             </Flex>
           </ModalBody>
         </ModalContent>

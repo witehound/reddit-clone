@@ -3,8 +3,11 @@ import { Flex, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { Height } from "@material-ui/icons";
 import React from "react";
 
-type SearchInputProps = {};
-const SearchInput = ({}: SearchInputProps) => {
+type SearchInputProps = {
+  user: any | null | undefined;
+};
+
+const SearchInput = ({ user }: SearchInputProps) => {
   return (
     <Flex flexGrow={1} mr={2} align={"center"} ml={"2"}>
       <InputGroup>
