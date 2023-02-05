@@ -13,6 +13,7 @@ type ButtonProps = {
   type?: "button" | "submit" | "reset" | undefined;
   mb?: any;
   children?: ReactNode;
+  isLoading?: boolean | undefined;
 };
 
 const CustomButton = ({
@@ -27,6 +28,7 @@ const CustomButton = ({
   type = "button",
   mb,
   children,
+  isLoading,
 }: ButtonProps) => {
   return (
     <Button
@@ -39,6 +41,7 @@ const CustomButton = ({
       border={border}
       mb={mb}
       onClick={handleClick}
+      isLoading={isLoading}
     >
       {text}
       {children}

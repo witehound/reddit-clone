@@ -3,6 +3,8 @@ import { Flex, Input, Text } from "@chakra-ui/react";
 import CustomButton from "@/src/components/CustomButton/CustomButton";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "@/src/components/atoms";
+import { fireBaseAuth, fireBaseErrors } from "@/src/service";
+import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
 
 type SignupFormType = {
   email: string;
@@ -11,15 +13,26 @@ type SignupFormType = {
 };
 
 const Signup = () => {
+  const [createUserWithEmailAndPassword, user, loading, userError] =
+    useCreateUserWithEmailAndPassword(fireBaseAuth);
+
   const setAutModal = useSetRecoilState(authModalState);
   const [singupForm, setSignupForm] = useState<SignupFormType>({
     email: "",
     password: "",
     confirmpassword: "",
   });
+  const [error, setError] = useState<string | undefined>(undefined);
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (error) setError(undefined);
+    if (singupForm.password !== singupForm.confirmpassword)
+      return setError("Passwords do not match");
+    else if (singupForm.password.length < 7)
+      return setError("Passwords to weak");
+
+    createUserWithEmailAndPassword(singupForm.email, singupForm.password);
   };
 
   const onChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -105,6 +118,12 @@ const Signup = () => {
         outline={"none"}
         borderColor={"blue.400"}
       />
+
+      <Text textAlign={"center"} color={"red"} fontSize={"9pt"} mb={2}>
+        {error ||
+          fireBaseErrors[userError?.message as keyof typeof fireBaseErrors]}
+      </Text>
+
       <CustomButton
         type="submit"
         text="Sign Up"
@@ -112,6 +131,7 @@ const Signup = () => {
         width={"100%"}
         height={"30px"}
         mb={2}
+        isLoading={loading}
       />
       <Flex fontSize={"9pt"} justifyContent={"center"} gap={4}>
         <Text>Already a redditor ?</Text>
