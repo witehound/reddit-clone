@@ -12,7 +12,7 @@ import {
   Flex,
   Input,
 } from "@chakra-ui/react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 type CreateCommunityModalType = {
   open: boolean;
@@ -25,12 +25,19 @@ const CreateCommunityModal = ({
 }: CreateCommunityModalType) => {
   const [communityName, setCommunityName] = useState<string>("");
   const [charsRemaining, setCharRemaining] = useState(21);
+  const [communityType, setCommunityType] = useState<any>("public");
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 21) return;
     setCommunityName(e.target.value);
     setCharRemaining(21 - e.target.value?.length);
   };
+
+  const updateCheckedValue = (e: any) => {
+    setCommunityType(e?.target?.name);
+  };
+
+  useEffect(() => {}, [communityType]);
 
   return (
     <>
@@ -85,6 +92,46 @@ const CreateCommunityModal = ({
               >
                 Characters Remaining {charsRemaining}
               </Text>
+              <Box mb={2} mt={2}>
+                <Text fontWeight={500} fontSize={14}>
+                  Commuinity Type
+                </Text>
+                <Flex direction={"column"}>
+                  <Flex mb={1}>
+                    <Flex mr={2}>
+                      <input
+                        type="checkbox"
+                        checked={communityType === "public"}
+                        name={"public"}
+                        onChange={updateCheckedValue}
+                      />
+                    </Flex>
+                    <label>Public</label>
+                  </Flex>
+                  <Flex mb={1}>
+                    <Flex mr={2}>
+                      <input
+                        type="checkbox"
+                        checked={communityType === "restricted"}
+                        name={"restricted"}
+                        onChange={updateCheckedValue}
+                      />
+                    </Flex>
+                    <label>Restricted</label>
+                  </Flex>
+                  <Flex mb={1}>
+                    <Flex mr={2}>
+                      <input
+                        type="checkbox"
+                        name={"private"}
+                        checked={communityType === "private"}
+                        onChange={updateCheckedValue}
+                      />
+                    </Flex>
+                    <label>Private</label>
+                  </Flex>
+                </Flex>
+              </Box>
             </ModalBody>
           </Box>
 
@@ -101,5 +148,3 @@ const CreateCommunityModal = ({
 };
 
 export default CreateCommunityModal;
-
-//
