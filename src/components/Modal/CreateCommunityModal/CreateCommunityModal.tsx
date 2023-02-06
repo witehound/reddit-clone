@@ -141,7 +141,7 @@ const CreateCommunityModal = ({
                 Characters Remaining {charsRemaining}
               </Text>
 
-              <Text textAlign={"center"} color={"red"} fontSize={"9pt"} pt={1}>
+              <Text color={"red"} fontSize={"9pt"} pt={1}>
                 {nameError}
               </Text>
               <Box mb={2} mt={2}>
