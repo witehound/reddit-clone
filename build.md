@@ -14,3 +14,4 @@
  - [x] added all icons for navbar
  - [x] added signout functionality in the menu list 
  - [x] completed the modala to craete communities
+ - [x] completed funnctionality to create a new community and handle error
