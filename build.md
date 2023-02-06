@@ -13,3 +13,4 @@
  - [x] added reset password component
  - [x] added all icons for navbar
  - [x] added signout functionality in the menu list 
+ - [x] completed the modala to craete communities

@@ -11,8 +11,11 @@ import {
   Box,
   Flex,
   Input,
+  Icon,
 } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
+import { HiLockClosed } from "react-icons/hi";
+import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 
 type CreateCommunityModalType = {
   open: boolean;
@@ -33,7 +36,7 @@ const CreateCommunityModal = ({
     setCharRemaining(21 - e.target.value?.length);
   };
 
-  const updateCheckedValue = (e: any) => {
+  const updateCheckedValue = (e: ChangeEvent<HTMLInputElement>) => {
     setCommunityType(e?.target?.name);
   };
 
@@ -41,7 +44,12 @@ const CreateCommunityModal = ({
 
   return (
     <>
-      <Modal blockScrollOnMount={false} isOpen={open} onClose={handleClose}>
+      <Modal
+        blockScrollOnMount={false}
+        isOpen={open}
+        onClose={handleClose}
+        size="lg"
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader
@@ -97,7 +105,7 @@ const CreateCommunityModal = ({
                   Commuinity Type
                 </Text>
                 <Flex direction={"column"}>
-                  <Flex mb={1}>
+                  <Flex mb={1} align={"center"}>
                     <Flex mr={2}>
                       <input
                         type="checkbox"
@@ -106,9 +114,13 @@ const CreateCommunityModal = ({
                         onChange={updateCheckedValue}
                       />
                     </Flex>
-                    <label>Public</label>
+                    <Icon as={BsFillPersonFill} color="gray.500" mr={1} />
+                    <label style={{ fontSize: "12px" }}>Public</label>
+                    <Text fontSize={11} color={"gray.500"} ml={2}>
+                      Any one can view post and comment to this community
+                    </Text>
                   </Flex>
-                  <Flex mb={1}>
+                  <Flex mb={1} align="center">
                     <Flex mr={2}>
                       <input
                         type="checkbox"
@@ -117,9 +129,14 @@ const CreateCommunityModal = ({
                         onChange={updateCheckedValue}
                       />
                     </Flex>
-                    <label>Restricted</label>
+                    <Icon as={BsFillEyeFill} color="gray.500" mr={1} />
+                    <label style={{ fontSize: "12px" }}>Restricted</label>
+                    <Text fontSize={11} color={"gray.500"} ml={2}>
+                      Any one can view this community, but only approved users
+                      can post
+                    </Text>
                   </Flex>
-                  <Flex mb={1}>
+                  <Flex mb={1} align="center">
                     <Flex mr={2}>
                       <input
                         type="checkbox"
@@ -128,18 +145,34 @@ const CreateCommunityModal = ({
                         onChange={updateCheckedValue}
                       />
                     </Flex>
-                    <label>Private</label>
+                    <Icon as={HiLockClosed} color="gray.500" mr={1} />
+                    <label style={{ fontSize: "12px" }}>Private</label>
+                    <Text
+                      fontSize={11}
+                      color={"gray.500"}
+                      ml={2}
+                      position="relative"
+                    >
+                      Only approvred users can view and submit to this community
+                    </Text>
                   </Flex>
                 </Flex>
               </Box>
             </ModalBody>
           </Box>
 
-          <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleClose}>
+          <ModalFooter bg="gray.100" borderRadius={"0px 0px 10px 10px"}>
+            <Button
+              variant={"outline"}
+              height={"30px"}
+              mr={3}
+              onClick={handleClose}
+            >
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
+            <Button height={"30px"} onClick={() => {}}>
+              Create community
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
