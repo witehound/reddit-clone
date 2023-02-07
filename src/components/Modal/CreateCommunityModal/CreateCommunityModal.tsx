@@ -16,14 +16,7 @@ import {
 import { ChangeEvent, useEffect, useState } from "react";
 import { HiLockClosed } from "react-icons/hi";
 import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
-import {
-  doc,
-  getDoc,
-  runTransaction,
-  serverTimestamp,
-  setDoc,
-  Transaction,
-} from "firebase/firestore";
+import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { fireBaseAuth, fireBaseStore } from "@/src/service";
 import { useAuthState } from "react-firebase-hooks/auth";
 
@@ -92,6 +85,7 @@ const CreateCommunityModal = ({
           }
         );
       });
+      handleClose();
     } catch (err: any) {
       console.log(`[handleCreateCommunity erropr : ${err}]`);
       setNameError(err.message);
