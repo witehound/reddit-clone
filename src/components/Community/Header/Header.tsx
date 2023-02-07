@@ -1,4 +1,4 @@
-import { Box, Flex, Icon, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Image, Text } from "@chakra-ui/react";
 import { FaReddit } from "react-icons/fa";
 import { Community } from "../../atoms/communitiesAtom";
 
@@ -7,6 +7,7 @@ type HeeaderComponentProps = {
 };
 
 const Header = ({ communityData }: HeeaderComponentProps) => {
+  const isJoined = false;
   return (
     <>
       <Flex direction={"column"} width="100%" height={"146px"}>
@@ -35,6 +36,15 @@ const Header = ({ communityData }: HeeaderComponentProps) => {
                   color={"gray.400"}
                 >{`r/${communityData.id}`}</Text>
               </Flex>
+              <Button
+                variant={isJoined ? "outline" : "solid"}
+                height="30px"
+                pr={6}
+                pl={6}
+                onClick={() => {}}
+              >
+                {isJoined ? "Joined" : "Join"}
+              </Button>
             </Flex>
           </Flex>
         </Flex>
