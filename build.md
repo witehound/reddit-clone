@@ -16,3 +16,4 @@
  - [x] completed the modala to craete communities
  - [x] completed funnctionality to create a new community and handle error
  - [x] completed the community header component
+ - [x] completed page component layout
