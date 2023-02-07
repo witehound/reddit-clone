@@ -17,7 +17,6 @@ const PageContent = ({ children, maxWidth }: PageContent) => {
         >
           {children && children[0 as keyof typeof children]}
         </Flex>
-        {/* Right Content */}
         <Box
           display={{ base: "none", md: "flex" }}
           flexDirection="column"

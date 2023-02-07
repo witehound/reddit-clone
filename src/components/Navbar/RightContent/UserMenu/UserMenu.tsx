@@ -16,8 +16,9 @@ import { MdOutlineLogout } from "react-icons/md";
 import { HiSparkles } from "react-icons/hi";
 import { fireBaseAuth } from "../../../../service/index";
 import { signOut } from "firebase/auth";
-import { useSetRecoilState } from "recoil";
+import { useResetRecoilState, useSetRecoilState } from "recoil";
 import { authModalState } from "@/src/components/atoms";
+import { communityState } from "@/src/components/atoms/communitiesAtom";
 
 type UserMenuType = {
   user: User | null | undefined;
@@ -25,8 +26,14 @@ type UserMenuType = {
 
 const UserMenu = ({ user }: UserMenuType) => {
   const setAuthModal = useSetRecoilState(authModalState);
+  const resetCommunityState = useResetRecoilState(communityState);
   const signUserOut = () => {
     signOut(fireBaseAuth);
+  };
+
+  const logOut = async () => {
+    await signUserOut();
+    resetCommunityState();
   };
 
   const openAuthModal = () => {
@@ -107,7 +114,7 @@ const UserMenu = ({ user }: UserMenuType) => {
                 fontSize={"10pt"}
                 fontWeight={700}
                 _hover={{ bg: "blue.500", color: "white" }}
-                onClick={signUserOut}
+                onClick={logOut}
               >
                 <Flex align={"center"}>
                   <Icon as={MdOutlineLogout} fontSize={20} mr={2} />

@@ -1,5 +1,5 @@
 import { Timestamp } from "firebase/firestore";
-import atom from "recoil"
+import {atom} from "recoil"
 
 export interface Community {
     id: string;
@@ -9,3 +9,23 @@ export interface Community {
     privacyType?: string;
     imageUrl?: string 
 }
+
+export interface CommunitySnippet {
+    communityId: string,
+    isModerator?: boolean,
+    imageUrl?: string
+}
+
+interface CommunityState {
+    mySnippets : CommunitySnippet[]
+}
+
+const defaultCommunityState : CommunityState = {
+    mySnippets : []
+}
+
+export const communityState = atom<CommunityState>({
+    key: "communityState",
+    default : defaultCommunityState
+})
+
