@@ -60,4 +60,3 @@ const Header = ({ communityData }: HeeaderComponentProps) => {
 };
 
 export default Header;
-//
