@@ -1,11 +1,26 @@
 import CustomButton from "@/src/components/CustomButton/CustomButton";
 import { fireBaseAuth } from "@/src/service";
 import { Flex, Image, Text } from "@chakra-ui/react";
+import { collection, doc, setDoc } from "firebase/firestore";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import { fireBaseStore } from "@/src/service";
+import { User } from "firebase/auth";
+import { useEffect } from "react";
 
 const OauthButtons = () => {
   const [signInWithGoogle, user, loading, userError] =
     useSignInWithGoogle(fireBaseAuth);
+
+  const createUserDocument = async (user: User) => {
+    const userDocRef = doc(fireBaseStore, "users", user.uid);
+    await setDoc(userDocRef, JSON.parse(JSON.stringify(user)));
+  };
+
+  useEffect(() => {
+    if (user) {
+      createUserDocument(user.user);
+    }
+  }, [user]);
   return (
     <Flex
       flex={1}
