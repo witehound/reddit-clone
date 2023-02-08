@@ -8,7 +8,8 @@ import {
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { authModalState } from "../components/atoms";
 import {
   Community,
   CommunitySnippet,
@@ -17,6 +18,7 @@ import {
 import { fireBaseAuth, fireBaseStore } from "../service";
 
 const useCommunities = () => {
+  const setAuthModal = useSetRecoilState(authModalState);
   const [user] = useAuthState(fireBaseAuth);
   const [communityStateValue, setCommunityStateValue] =
     useRecoilState(communityState);
@@ -105,7 +107,21 @@ const useCommunities = () => {
   const onJoinOrLeaveCommuunity = (
     communityData: Community,
     isJoined: boolean
-  ) => {};
+  ) => {
+    console.log("ON JOIN LEAVE", communityData.id);
+
+    if (!user) {
+      setAuthModal({ open: true, view: "login" });
+      return;
+    }
+
+    setLoading(true);
+    if (isJoined) {
+      leaveCommunity(communityData.id);
+      return;
+    }
+    joinCommunity(communityData);
+  };
 
   useEffect(() => {
     if (!user) return;

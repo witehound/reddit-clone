@@ -1,5 +1,6 @@
 import { Community } from "@/src/components/atoms/communitiesAtom";
 import CommunityNotFound from "@/src/components/Community/CommunityNotFound/CommunityNotFound";
+import CreatePostLink from "@/src/components/Community/CreatePostLink/CreatePostLink";
 import Header from "@/src/components/Community/Header/Header";
 import PageContent from "@/src/components/Layout/PageContent";
 import { fireBaseStore } from "@/src/service";
@@ -21,7 +22,9 @@ const CommunityPage: NextPage<CommunityPageProps> = ({ communityData }) => {
       <Header communityData={communityData} />
       <PageContent>
         <>
-          <div>lhs</div>
+          <div>
+            <CreatePostLink />
+          </div>
         </>
         <>
           <div>rhs</div>

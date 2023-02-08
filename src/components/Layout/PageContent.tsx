@@ -4,12 +4,18 @@ import { ReactNode } from "react";
 type PageContent = {
   children: ReactNode;
   maxWidth?: string;
+  bg?: string;
 };
 
-const PageContent = ({ children, maxWidth }: PageContent) => {
+const PageContent = ({ children, maxWidth, bg }: PageContent) => {
   return (
     <Flex justify="center" p="16px 0px">
-      <Flex width="95%" justify="center" maxWidth={maxWidth || "860px"}>
+      <Flex
+        width="95%"
+        justify="center"
+        maxWidth={maxWidth || "860px"}
+        bg={bg && bg}
+      >
         <Flex
           direction="column"
           width={{ base: "100%", md: "65%" }}
