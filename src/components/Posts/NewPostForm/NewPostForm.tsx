@@ -1,6 +1,5 @@
 import { Flex, Icon } from "@chakra-ui/react";
 import { IoDocumentText, IoImageOutline } from "react-icons/io5";
-import { AiFillCloseCircle } from "react-icons/ai";
 import { useRouter } from "next/router";
 import { BiPoll } from "react-icons/bi";
 import { BsLink45Deg, BsMic } from "react-icons/bs";
@@ -49,9 +48,9 @@ export type TabItemType = {
 };
 
 type NewPostFormProps = {
-  communityId: string;
+  communityId: string | string[] | undefined;
   communityImageURL?: string;
-  user: User;
+  user: any;
 };
 
 const NewPostForm = ({
@@ -88,8 +87,6 @@ const NewPostForm = ({
         editedAt: serverTimestamp(),
       });
 
-      console.log("HERE IS NEW POST ID", postDocRef.id);
-
       // // check if selectedFile exists, if it does, do image processing
       if (selectedFile) {
         const imageRef = ref(fireBaseStorage, `posts/${postDocRef.id}/image`);
@@ -98,7 +95,6 @@ const NewPostForm = ({
         await updateDoc(postDocRef, {
           imageURL: downloadURL,
         });
-        console.log("HERE IS DOWNLOAD URL", downloadURL);
       }
 
       // Clear the cache to cause a refetch of the posts
@@ -108,7 +104,7 @@ const NewPostForm = ({
       }));
       router.back();
     } catch (error) {
-      console.log("createPost error", error);
+      console.log(`[createPost error ] : ${error}`);
       setError("Error creating post");
     }
     setLoading(false);

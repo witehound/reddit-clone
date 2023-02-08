@@ -31,19 +31,19 @@ export type PostVote = {
 interface PostState {
   selectedPost: Post | null;
   posts: Post[];
-  postVotes: PostVote[];
-  postsCache: {
-    [key: string]: Post[];
-  };
-  postUpdateRequired: boolean;
+  //   postVotes: PostVote[];
+  //   postsCache: {
+  //     [key: string]: Post[];
+  //   };
+  //   postUpdateRequired: boolean;
 }
 
 export const defaultPostState: PostState = {
   selectedPost: null,
   posts: [],
-  postVotes: [],
-  postsCache: {},
-  postUpdateRequired: true,
+  //   postVotes: [],
+  //   postsCache: {},
+  //   postUpdateRequired: true,
 };
 
 export const postState = atom({
