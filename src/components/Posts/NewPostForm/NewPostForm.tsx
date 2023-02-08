@@ -9,6 +9,16 @@ import { ChangeEvent, useRef, useState } from "react";
 import TextInputs from "../TextInputs/TextInputs";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import TabItem from "../TabItem/TabItem";
+import {
+  addDoc,
+  collection,
+  serverTimestamp,
+  updateDoc,
+} from "firebase/firestore";
+import { fireBaseStorage, fireBaseStore } from "@/src/service";
+import { getDownloadURL, ref, uploadString } from "firebase/storage";
+import { useSetRecoilState } from "recoil";
+import { postState } from "../../atoms/postsAtoms";
 
 const formTabs = [
   {
@@ -59,11 +69,63 @@ const NewPostForm = ({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
-  // const setPostItems = useSetRecoilState(postState);
+  const setPostItems = useSetRecoilState(postState);
 
-  const handleCreatePost = async () => {};
+  const handleCreatePost = async () => {
+    setLoading(true);
+    const { title, body } = textInputs;
+    try {
+      const postDocRef = await addDoc(collection(fireBaseStore, "posts"), {
+        communityId,
+        communityImageURL: communityImageURL || "",
+        creatorId: user.uid,
+        userDisplayText: user.email!.split("@")[0],
+        title,
+        body,
+        numberOfComments: 0,
+        voteStatus: 0,
+        createdAt: serverTimestamp(),
+        editedAt: serverTimestamp(),
+      });
 
-  const onSelectImage = () => {};
+      console.log("HERE IS NEW POST ID", postDocRef.id);
+
+      // // check if selectedFile exists, if it does, do image processing
+      if (selectedFile) {
+        const imageRef = ref(fireBaseStorage, `posts/${postDocRef.id}/image`);
+        await uploadString(imageRef, selectedFile, "data_url");
+        const downloadURL = await getDownloadURL(imageRef);
+        await updateDoc(postDocRef, {
+          imageURL: downloadURL,
+        });
+        console.log("HERE IS DOWNLOAD URL", downloadURL);
+      }
+
+      // Clear the cache to cause a refetch of the posts
+      setPostItems((prev) => ({
+        ...prev,
+        postUpdateRequired: true,
+      }));
+      router.back();
+    } catch (error) {
+      console.log("createPost error", error);
+      setError("Error creating post");
+    }
+    setLoading(false);
+  };
+
+  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const reader = new FileReader();
+    if (event.target.files?.[0]) {
+      reader.readAsDataURL(event.target.files[0]);
+    }
+
+    reader.onload = (readerEvent) => {
+      if (readerEvent.target?.result) {
+        setSelectedFile(readerEvent.target?.result as string);
+      }
+    };
+  };
 
   const onTextChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
