@@ -61,6 +61,12 @@ const NewPostForm = ({
   const router = useRouter();
   // const setPostItems = useSetRecoilState(postState);
 
+  const handleCreatePost = async () => {};
+
+  const onSelectImage = () => {};
+
+  const onTextChange = () => {};
+
   return (
     <Flex direction="column" bg="white" borderRadius={4} mt={2}>
       <Flex width="100%">
@@ -73,7 +79,7 @@ const NewPostForm = ({
           />
         ))}
       </Flex>
-      {/* <Flex p={4}>
+      <Flex p={4}>
         {selectedTab === "Post" && (
           <TextInputs
             textInputs={textInputs}
@@ -82,7 +88,7 @@ const NewPostForm = ({
             loading={loading}
           />
         )}
-        {selectedTab === "Images & Video" && (
+        {/* {selectedTab === "Images & Video" && (
           <ImageUpload
             selectedFile={selectedFile}
             setSelectedFile={setSelectedFile}
@@ -90,8 +96,8 @@ const NewPostForm = ({
             selectFileRef={selectFileRef}
             onSelectImage={onSelectImage}
           />
-        )}
-      </Flex> */}
+        )} */}
+      </Flex>
     </Flex>
   );
 };
