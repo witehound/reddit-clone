@@ -20,6 +20,7 @@ const CommunityPage: NextPage<CommunityPageProps> = ({ communityData }) => {
   return (
     <>
       <Header communityData={communityData} />
+
       <PageContent>
         <>
           <div>

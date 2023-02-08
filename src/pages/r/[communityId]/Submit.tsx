@@ -4,21 +4,23 @@ import { Box, Text } from "@chakra-ui/react";
 
 const Submit = () => {
   return (
-    <PageContent>
-      <>
-        <Box>
-          <Text
-            p={"14px 0px"}
-            borderBottom="1px solid"
-            borderColor={"gray.400"}
-          >
-            Craete a post
-          </Text>
-        </Box>
-        <NewPostForm />
-      </>
-      <></>
-    </PageContent>
+    <div style={{ backgroundColor: "#F0F8FF", width: "100%", height: "100vh" }}>
+      <PageContent>
+        <>
+          <Box>
+            <Text
+              p={"14px 0px"}
+              borderBottom="1px solid"
+              borderColor={"gray.400"}
+            >
+              Craete a post
+            </Text>
+          </Box>
+          <NewPostForm />
+        </>
+        <></>
+      </PageContent>
+    </div>
   );
 };
 
