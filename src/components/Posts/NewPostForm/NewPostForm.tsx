@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import { BiPoll } from "react-icons/bi";
 import { BsLink45Deg, BsMic } from "react-icons/bs";
 import { User } from "firebase/auth";
-import { useRef, useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
 import TextInputs from "../TextInputs/TextInputs";
 import ImageUpload from "../ImageUpload/ImageUpload";
 import TabItem from "../TabItem/TabItem";
@@ -65,7 +65,11 @@ const NewPostForm = ({
 
   const onSelectImage = () => {};
 
-  const onTextChange = () => {};
+  const onTextChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setTextInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
 
   return (
     <Flex direction="column" bg="white" borderRadius={4} mt={2}>
@@ -88,7 +92,7 @@ const NewPostForm = ({
             loading={loading}
           />
         )}
-        {/* {selectedTab === "Images & Video" && (
+        {selectedTab === "Images & Video" && (
           <ImageUpload
             selectedFile={selectedFile}
             setSelectedFile={setSelectedFile}
@@ -96,7 +100,7 @@ const NewPostForm = ({
             selectFileRef={selectFileRef}
             onSelectImage={onSelectImage}
           />
-        )} */}
+        )}
       </Flex>
     </Flex>
   );

@@ -8,11 +8,7 @@ const Submit = () => {
       <PageContent>
         <>
           <Box>
-            <Text
-              p={"14px 0px"}
-              borderBottom="1px solid"
-              borderColor={"gray.400"}
-            >
+            <Text p={"14px 0px"} borderBottom="1px solid" borderColor={"white"}>
               Craete a post
             </Text>
           </Box>

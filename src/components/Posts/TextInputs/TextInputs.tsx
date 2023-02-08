@@ -26,6 +26,7 @@ const TextInputs: React.FC<TextInputsProps> = ({
         fontSize={"10pt"}
         border={".5px solid"}
         placeholder="Title"
+        value={textInputs.title}
         _placeholder={{ color: "gray.500" }}
         _-hover={{
           bg: "white",
@@ -49,6 +50,7 @@ const TextInputs: React.FC<TextInputsProps> = ({
         fontSize={"10pt"}
         border={".5px solid"}
         placeholder="Text (Optional)"
+        value={textInputs.body}
         _placeholder={{ color: "gray.500" }}
         height={"100px"}
         bg={"gray.50"}
