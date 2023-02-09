@@ -18,7 +18,7 @@ const Submit = () => {
               Craete a post
             </Text>
           </Box>
-          <NewPostForm user={user} communityId={communityId} />
+          {user && <NewPostForm user={user} communityId={communityId} />}
         </>
         <></>
       </PageContent>

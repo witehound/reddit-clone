@@ -50,7 +50,7 @@ export type TabItemType = {
 type NewPostFormProps = {
   communityId: string | string[] | undefined;
   communityImageURL?: string;
-  user: any;
+  user: User;
 };
 
 const NewPostForm = ({
