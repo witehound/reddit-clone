@@ -27,14 +27,14 @@ import { Post } from "../../atoms/postsAtoms";
 
 export type PostItemContentProps = {
   post: Post;
-  onVote: (
+  onVote?: (
     event: React.MouseEvent<SVGElement, MouseEvent>,
     post: Post,
     vote: number,
     communityId: string,
     postIdx?: number
   ) => void;
-  onDeletePost: (post: Post) => Promise<boolean>;
+  onDeletePost?: (post: Post) => Promise<boolean>;
   userIsCreator: boolean;
   onSelectPost?: (value: Post, postIdx: number) => void;
   router?: NextRouter;
@@ -64,7 +64,7 @@ const PostItem: React.FC<PostItemContentProps> = ({
     event.stopPropagation();
     setLoadingDelete(true);
     try {
-      const success = await onDeletePost(post);
+      const success = onDeletePost && (await onDeletePost(post));
       if (!success) throw new Error("Failed to delete post");
 
       console.log("Post successfully deleted");
@@ -102,7 +102,9 @@ const PostItem: React.FC<PostItemContentProps> = ({
           color={userVoteValue === 1 ? "brand.100" : "gray.400"}
           fontSize={22}
           cursor="pointer"
-          onClick={(event) => onVote(event, post, 1, post.communityId)}
+          onClick={(event) =>
+            onVote && onVote(event, post, 1, post.communityId)
+          }
         />
         <Text fontSize="9pt" fontWeight={600}>
           {post.voteStatus}
@@ -116,7 +118,9 @@ const PostItem: React.FC<PostItemContentProps> = ({
           color={userVoteValue === -1 ? "#4379FF" : "gray.400"}
           fontSize={22}
           cursor="pointer"
-          onClick={(event) => onVote(event, post, -1, post.communityId)}
+          onClick={(event) =>
+            onVote && onVote(event, post, -1, post.communityId)
+          }
         />
       </Flex>
       <Flex direction="column" width="100%">

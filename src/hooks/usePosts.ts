@@ -12,12 +12,18 @@ const usePosts = () => {
   const setAuthModalState = useSetRecoilState(authModalState);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-    const router = useRouter();
-    
-    
+  const router = useRouter();
+
+  const onSelectPost = () => {};
+  const onDeletePost = async () => {};
+  const onVote =async () => {};
+
   return {
     postStateValue,
     setPostStateValue,
+    onSelectPost,
+    onDeletePost,
+    onVote,
   };
 };
 

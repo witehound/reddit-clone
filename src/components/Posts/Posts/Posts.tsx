@@ -1,9 +1,11 @@
 import usePosts from "@/src/hooks/usePosts";
-import { fireBaseStore } from "@/src/service";
+import { fireBaseAuth, fireBaseStore } from "@/src/service";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import { Community } from "../../atoms/communitiesAtom";
 import { Post } from "../../atoms/postsAtoms";
+import PostItem from "../PostItem/PostItem";
 
 type PostsProps = {
   communityData?: Community;
@@ -12,11 +14,16 @@ type PostsProps = {
 };
 
 const Posts = ({ communityData }: PostsProps) => {
+  const [user] = useAuthState(fireBaseAuth);
   const [loading, setLoading] = useState(false);
-  const { postStateValue, setPostStateValue } = usePosts();
+  const {
+    postStateValue,
+    setPostStateValue,
+    onSelectPost,
+    onDeletePost,
+    onVote,
+  } = usePosts();
   const getPosts = async () => {
-    console.log("WE ARE GETTING POSTS!!!");
-
     setLoading(true);
     try {
       const postsQuery = query(
@@ -35,8 +42,6 @@ const Posts = ({ communityData }: PostsProps) => {
         //   },
         //   postUpdateRequired: false,
       }));
-
-      console.log(posts);
     } catch (error: any) {
       console.log("getPosts error", error.message);
     }
@@ -46,6 +51,20 @@ const Posts = ({ communityData }: PostsProps) => {
   useEffect(() => {
     getPosts();
   }, []);
-  return <></>;
+  return (
+    <>
+      {postStateValue.posts.map((item) => (
+        <PostItem
+          post={item}
+          key={item.id}
+          userIsCreator={user?.uid == item.creatorId}
+          userVoteValue={undefined}
+          onSelectPost={onSelectPost}
+          //   onDeletePost={onDeletePost}
+          onVote={onVote}
+        />
+      ))}
+    </>
+  );
 };
 export default Posts;
