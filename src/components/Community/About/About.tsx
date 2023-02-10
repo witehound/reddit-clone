@@ -25,6 +25,7 @@ import { FaReddit } from "react-icons/fa";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
 import { fireBaseAuth } from "@/src/service";
+import useSelectFile from "@/src/hooks/useSelectFile";
 
 type AboutProps = {
   communityData: Community;
@@ -44,21 +45,9 @@ const About: React.FC<AboutProps> = ({
   const selectFileRef = useRef<HTMLInputElement>(null);
   const setCommunityStateValue = useSetRecoilState(communityState);
 
-  const [selectedFile, setSelectedFile] = useState<string>();
-
   const [imageLoading, setImageLoading] = useState(false);
 
-  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    if (event.target.files?.[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-    }
-    reader.onload = (readerEvent) => {
-      if (readerEvent.target?.result) {
-        setSelectedFile(readerEvent.target?.result as string);
-      }
-    };
-  };
+  const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
 
   const updateImage = async () => {
     //     if (!selectedFile) return;
@@ -217,7 +206,7 @@ const About: React.FC<AboutProps> = ({
                       accept="image/x-png,image/gif,image/jpeg"
                       hidden
                       ref={selectFileRef}
-                      onChange={onSelectImage}
+                      onChange={onSelectFile}
                     />
                   </Stack>
                 </>
