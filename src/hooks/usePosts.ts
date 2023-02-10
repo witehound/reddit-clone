@@ -96,9 +96,13 @@ const usePosts = () => {
 
     const { voteStatus } = post;
 
+
+
     const existingVote = postStateValue.postVotes.find(
       (vote) => vote.postId === post.id
     );
+
+    console.log(`existingVote`, existingVote);
 
     try {
       let voteChange = vote;
