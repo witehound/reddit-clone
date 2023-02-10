@@ -86,6 +86,7 @@ const PostItem: React.FC<PostItemContentProps> = ({
       cursor={singlePostView ? "unset" : "pointer"}
       _hover={{ borderColor: singlePostView ? "none" : "gray.500" }}
       onClick={() => onSelectPost(post, postIdx!)}
+      mb={3}
     >
       <Flex
         direction="column"
@@ -165,8 +166,6 @@ const PostItem: React.FC<PostItemContentProps> = ({
                 <Skeleton height="200px" width="100%" borderRadius={4} />
               )}
               <Image
-                // width="80%"
-                // maxWidth="500px"
                 maxHeight="460px"
                 src={post.imageURL}
                 display={loadingImage ? "none" : "unset"}
@@ -233,5 +232,3 @@ const PostItem: React.FC<PostItemContentProps> = ({
 };
 
 export default PostItem;
-
-//
