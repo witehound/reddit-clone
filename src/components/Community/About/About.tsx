@@ -17,10 +17,9 @@ import { RiCakeLine } from "react-icons/ri";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useAuthState } from "react-firebase-hooks/auth";
-
 import { Community, communityState } from "../../atoms/communitiesAtom";
 import moment from "moment";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { FaReddit } from "react-icons/fa";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
@@ -41,7 +40,6 @@ const About: React.FC<AboutProps> = ({
   loading,
 }) => {
   const [user] = useAuthState(fireBaseAuth);
-  const router = useRouter();
   const selectFileRef = useRef<HTMLInputElement>(null);
   const setCommunityStateValue = useSetRecoilState(communityState);
 
@@ -156,7 +154,7 @@ const About: React.FC<AboutProps> = ({
                 )}
               </Flex>
               {!onCreatePage && (
-                <Link href={`/r/${router.query.community}/submit`}>
+                <Link href={`/r/${communityData.id}/submit`}>
                   <Button mt={3} height="30px">
                     Create Post
                   </Button>

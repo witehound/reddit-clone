@@ -22,8 +22,8 @@ const Header = ({ communityData }: HeeaderComponentProps) => {
             {communityStateValue.currentCommunity ? (
               <Image
                 src={communityStateValue.currentCommunity?.imageUrl}
-                height="64px"
-                width={"64px"}
+                height="66px"
+                width={"66px"}
                 position="relative"
                 top={-3}
                 border={"4px solid white"}

@@ -21,4 +21,5 @@
  - [x] completed functunalities to create post with iamge or without
  - [x] added th onDeletePost function in th usPost hook
  - [x] added useSelectFile custom hook 
+ - [x] completed the onVote functionality in the usePosts hook
   
