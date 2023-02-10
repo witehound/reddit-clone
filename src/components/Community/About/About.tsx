@@ -24,7 +24,7 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { FaReddit } from "react-icons/fa";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { doc, updateDoc } from "firebase/firestore";
-import { fireBaseAuth } from "@/src/service";
+import { fireBaseAuth, fireBaseStorage, fireBaseStore } from "@/src/service";
 import useSelectFile from "@/src/hooks/useSelectFile";
 
 type AboutProps = {
@@ -50,30 +50,31 @@ const About: React.FC<AboutProps> = ({
   const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
 
   const updateImage = async () => {
-    //     if (!selectedFile) return;
-    //     setImageLoading(true);
-    //     try {
-    //       const imageRef = ref(storage, `communities/${communityData.id}/image`);
-    //       await uploadString(imageRef, selectedFile, "data_url");
-    //       const downloadURL = await getDownloadURL(imageRef);
-    //       await updateDoc(doc(firestore, "communities", communityData.id), {
-    //         imageURL: downloadURL,
-    //       });
-    //       console.log("HERE IS DOWNLOAD URL", downloadURL);
-    //       // April 24 - added state update
-    //       setCommunityStateValue((prev) => ({
-    //         ...prev,
-    //         currentCommunity: {
-    //           ...prev.currentCommunity,
-    //           imageURL: downloadURL,
-    //         },
-    //       }));
-    //     } catch (error: any) {
-    //       console.log("updateImage error", error.message);
-    //     }
-    //     // April 24 - removed reload
-    //     // window.location.reload();
-    //     setImageLoading(false);
+    if (!selectedFile) return;
+    setImageLoading(true);
+    try {
+      const imageRef = ref(
+        fireBaseStorage,
+        `communities/${communityData.id}/image`
+      );
+      await uploadString(imageRef, selectedFile, "data_url");
+      const downloadURL = await getDownloadURL(imageRef);
+      await updateDoc(doc(fireBaseStore, "communities", communityData.id), {
+        imageUrl: downloadURL,
+      });
+
+      setCommunityStateValue((prev) => ({
+        ...prev,
+        currentCommunity: {
+          ...prev.currentCommunity,
+          imageUrl: downloadURL,
+        } as Community,
+      }));
+    } catch (error: any) {
+      console.log(`[updateImage error ]`, error.message);
+    }
+
+    setImageLoading(false);
   };
 
   return (
@@ -162,7 +163,7 @@ const About: React.FC<AboutProps> = ({
                 </Link>
               )}
 
-              {/* {user?.uid === communityData?.creatorId && (
+              {user?.uid === communityData?.creatorId && (
                 <>
                   <Divider />
                   <Stack fontSize="10pt" spacing={1}>
@@ -176,12 +177,13 @@ const About: React.FC<AboutProps> = ({
                       >
                         Change Image
                       </Text>
-                      {communityData?.imageURL || selectedFile ? (
+                      {communityData?.imageUrl || selectedFile ? (
                         <Image
                           borderRadius="full"
                           boxSize="40px"
-                          src={selectedFile || communityData?.imageURL}
+                          src={selectedFile || communityData?.imageUrl}
                           alt="Dan Abramov"
+                          objectFit={"cover"}
                         />
                       ) : (
                         <Icon
@@ -210,7 +212,7 @@ const About: React.FC<AboutProps> = ({
                     />
                   </Stack>
                 </>
-              )} */}
+              )}
             </Stack>
           </>
         )}
