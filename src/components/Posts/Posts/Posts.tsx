@@ -60,7 +60,7 @@ const Posts = ({ communityData }: PostsProps) => {
           userIsCreator={user?.uid == item.creatorId}
           userVoteValue={undefined}
           onSelectPost={onSelectPost}
-          //   onDeletePost={onDeletePost}
+          onDeletePost={onDeletePost}
           onVote={onVote}
         />
       ))}

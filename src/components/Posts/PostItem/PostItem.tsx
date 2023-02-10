@@ -34,7 +34,7 @@ export type PostItemContentProps = {
     communityId: string,
     postIdx?: number
   ) => void;
-  onDeletePost?: (post: Post) => Promise<boolean>;
+  onDeletePost: (post: Post) => Promise<boolean>;
   userIsCreator: boolean;
   onSelectPost: (value: Post, postIdx: number) => void;
   router?: NextRouter;
@@ -64,15 +64,12 @@ const PostItem: React.FC<PostItemContentProps> = ({
     event.stopPropagation();
     setLoadingDelete(true);
     try {
-      const success = onDeletePost && (await onDeletePost(post));
+      const success = await onDeletePost(post);
       if (!success) throw new Error("Failed to delete post");
-
-      console.log("Post successfully deleted");
 
       if (router) router.back();
     } catch (error: any) {
       console.log("Error deleting post", error.message);
-
       setLoadingDelete(false);
     }
   };

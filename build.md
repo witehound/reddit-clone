@@ -18,5 +18,6 @@
  - [x] completed the community header component
  - [x] completed page component layout
  - [x] completed functunalities to join and leave a community in the useCommunites custim hook
-  - [x] completed functunalities to create post with iamge or without
+ - [x] completed functunalities to create post with iamge or without
+ - [x] added th onDeletePost function in th usPost hook
   
