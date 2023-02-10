@@ -51,6 +51,7 @@ const Posts = ({ communityData }: PostsProps) => {
   useEffect(() => {
     getPosts();
   }, []);
+
   return (
     <>
       {postStateValue.posts.map((item) => (

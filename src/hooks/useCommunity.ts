@@ -124,8 +124,16 @@ const useCommunities = () => {
   };
 
   useEffect(() => {
-    if (!user) return;
-    gteMySnippets();
+    if (!user) {
+      setCommunityStateValue(prev => ({
+        ...prev,
+        mySnippets : []
+      }))
+      return
+    } 
+      gteMySnippets();
+    
+    
   }, [user]);
 
   return {

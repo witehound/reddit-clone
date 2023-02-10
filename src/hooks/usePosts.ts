@@ -27,6 +27,7 @@ const usePosts = () => {
   const currentCommunity = useRecoilValue(communityState).currentCommunity;
 
   const getCommunityPostVotes = async (communityId: string) => {
+ 
     const postVotesQuery = query(
       collection(fireBaseStore, `users/${user?.uid}/postVotes`),
       where("communityId", "==", communityId)
@@ -36,6 +37,7 @@ const usePosts = () => {
       id: doc.id,
       ...doc.data(),
     }));
+
     setPostStateValue((prev) => ({
       ...prev,
       postVotes: postVotes as PostVote[],
@@ -96,13 +98,9 @@ const usePosts = () => {
 
     const { voteStatus } = post;
 
-
-
     const existingVote = postStateValue.postVotes.find(
       (vote) => vote.postId === post.id
     );
-
-    console.log(`existingVote`, existingVote);
 
     try {
       let voteChange = vote;
@@ -193,8 +191,17 @@ const usePosts = () => {
 
   useEffect(() => {
     if (!currentCommunity?.id) return;
-    getCommunityPostVotes(currentCommunity?.id);
+    getCommunityPostVotes(currentCommunity.id);
   }, [currentCommunity, user]);
+
+  useEffect(() => {
+    if (!user) {
+      setPostStateValue(prev => ({
+        ...prev,
+        postVotes : []
+      }))
+    }
+  },[user])
 
   return {
     postStateValue,

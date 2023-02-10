@@ -26,6 +26,7 @@ type UserMenuType = {
 
 const UserMenu = ({ user }: UserMenuType) => {
   const setAuthModal = useSetRecoilState(authModalState);
+  // const setCommunityState
   const resetCommunityState = useResetRecoilState(communityState);
   const signUserOut = () => {
     signOut(fireBaseAuth);
