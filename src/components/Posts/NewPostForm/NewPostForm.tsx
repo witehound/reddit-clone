@@ -18,6 +18,7 @@ import { fireBaseStorage, fireBaseStore } from "@/src/service";
 import { getDownloadURL, ref, uploadString } from "firebase/storage";
 import { useSetRecoilState } from "recoil";
 import { postState } from "../../atoms/postsAtoms";
+import useSelectFile from "@/src/hooks/useSelectFile";
 
 const formTabs = [
   {
@@ -63,12 +64,13 @@ const NewPostForm = ({
     title: "",
     body: "",
   });
-  const [selectedFile, setSelectedFile] = useState<string>();
   const selectFileRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
   const setPostItems = useSetRecoilState(postState);
+
+  const { selectedFile, setSelectedFile, onSelectFile } = useSelectFile();
 
   const handleCreatePost = async () => {
     setLoading(true);
@@ -110,19 +112,6 @@ const NewPostForm = ({
     setLoading(false);
   };
 
-  const onSelectImage = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const reader = new FileReader();
-    if (event.target.files?.[0]) {
-      reader.readAsDataURL(event.target.files[0]);
-    }
-
-    reader.onload = (readerEvent) => {
-      if (readerEvent.target?.result) {
-        setSelectedFile(readerEvent.target?.result as string);
-      }
-    };
-  };
-
   const onTextChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -156,7 +145,7 @@ const NewPostForm = ({
             setSelectedFile={setSelectedFile}
             setSelectedTab={setSelectedTab}
             selectFileRef={selectFileRef}
-            onSelectImage={onSelectImage}
+            onSelectImage={onSelectFile}
           />
         )}
       </Flex>
