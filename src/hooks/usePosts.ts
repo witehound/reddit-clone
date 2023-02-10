@@ -209,6 +209,8 @@ const usePosts = () => {
     onSelectPost,
     onDeletePost,
     onVote,
+    loading,
+    setLoading
   };
 };
 
