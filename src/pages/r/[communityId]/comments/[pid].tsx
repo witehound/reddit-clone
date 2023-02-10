@@ -12,6 +12,7 @@ import { Post } from "@/src/components/atoms/postsAtoms";
 import About from "@/src/components/Community/About/About";
 import PostItem from "@/src/components/Posts/PostItem/PostItem";
 import PostLoader from "@/src/components/Posts/PostLoader/PostLoader";
+import Comments from "@/src/components/Posts/Comments";
 
 type PostPageProps = {};
 
@@ -77,11 +78,11 @@ const PostPage: React.FC<PostPageProps> = () => {
                   }
                   router={router}
                 />
-                {/* <Comment
+                <Comments
                   user={user}
                   community={community as string}
                   selectedPost={postStateValue.selectedPost}
-                /> */}
+                />
               </>
             )}
           </>

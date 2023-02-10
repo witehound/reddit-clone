@@ -54,7 +54,13 @@ const usePosts = () => {
     // return () => unsubscribe();
   };
 
-  const onSelectPost = () => {};
+  const onSelectPost = (post: Post, postIdx: number) => {
+    setPostStateValue((prev) => ({
+      ...prev,
+      selectedPost: { ...post, postIdx },
+    }));
+    router.push(`/r/${post.communityId}/comments/${post.id}`);
+  };
 
   const onDeletePost = async (post: Post): Promise<boolean> => {
     try {
