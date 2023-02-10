@@ -16,10 +16,9 @@ const usePosts = () => {
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const onSelectPost = () => {};
+  const onSelectPost = () => { };
+  
   const onDeletePost = async (post: Post): Promise<boolean> => {
-    console.log("DELETING POST: ", post.id);
-
     try {
       if (post.imageURL) {
         const imageRef = ref(fireBaseStorage, `posts/${post.id}/image`);
@@ -46,6 +45,7 @@ const usePosts = () => {
       return false;
     }
   };
+  
   const onVote =async () => {};
 
   return {
