@@ -36,7 +36,7 @@ export type PostItemContentProps = {
   ) => void;
   onDeletePost?: (post: Post) => Promise<boolean>;
   userIsCreator: boolean;
-  onSelectPost?: (value: Post, postIdx: number) => void;
+  onSelectPost: (value: Post, postIdx: number) => void;
   router?: NextRouter;
   postIdx?: number;
   userVoteValue?: number;
@@ -85,7 +85,7 @@ const PostItem: React.FC<PostItemContentProps> = ({
       borderRadius={singlePostView ? "4px 4px 0px 0px" : 4}
       cursor={singlePostView ? "unset" : "pointer"}
       _hover={{ borderColor: singlePostView ? "none" : "gray.500" }}
-      onClick={() => onSelectPost && post && onSelectPost(post, postIdx!)}
+      onClick={() => onSelectPost(post, postIdx!)}
     >
       <Flex
         direction="column"
@@ -233,3 +233,5 @@ const PostItem: React.FC<PostItemContentProps> = ({
 };
 
 export default PostItem;
+
+//
