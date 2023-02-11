@@ -55,50 +55,53 @@ const PostPage: React.FC<PostPageProps> = () => {
   }, [router.query, postStateValue.selectedPost]);
 
   return (
-    <PageContentLayout>
-      <>
-        {loading ? (
-          <PostLoader />
-        ) : (
-          <>
-            {postStateValue.selectedPost && (
-              <>
-                <PostItem
-                  post={postStateValue.selectedPost}
-                  //   // postIdx={postStateValue.selectedPost.postIdx}
-                  onVote={onVote}
-                  onDeletePost={onDeletePost}
-                  userVoteValue={
-                    postStateValue.postVotes.find(
-                      (item) => item.postId === postStateValue.selectedPost!.id
-                    )?.voteValue
-                  }
-                  userIsCreator={
-                    user?.uid === postStateValue.selectedPost.creatorId
-                  }
-                  router={router}
-                />
-                <Comments
-                  user={user}
-                  community={community as string}
-                  selectedPost={postStateValue.selectedPost}
-                />
-              </>
-            )}
-          </>
-        )}
-      </>
+    <div style={{ backgroundColor: "#F0F8FF", width: "100%", height: "100vh" }}>
+      <PageContentLayout>
+        <>
+          {loading ? (
+            <PostLoader />
+          ) : (
+            <>
+              {postStateValue.selectedPost && (
+                <>
+                  <PostItem
+                    post={postStateValue.selectedPost}
+                    onVote={onVote}
+                    onDeletePost={onDeletePost}
+                    userVoteValue={
+                      postStateValue.postVotes.find(
+                        (item) =>
+                          item.postId === postStateValue.selectedPost!.id
+                      )?.voteValue
+                    }
+                    userIsCreator={
+                      user?.uid === postStateValue.selectedPost.creatorId
+                    }
+                    router={router}
+                  />
+                  <Comments
+                    user={user}
+                    community={community as string}
+                    selectedPost={postStateValue.selectedPost}
+                  />
+                </>
+              )}
+            </>
+          )}
+        </>
 
-      {/* <>
-        <About
+        <>
+          {/* <About
           communityData={
             communityStateValue.currentCommunity
             // communityStateValue.visitedCommunities[community as string]
           }
           loading={loading}
-        />
-      </> */}
-    </PageContentLayout>
+        /> */}
+        </>
+      </PageContentLayout>
+    </div>
   );
 };
+
 export default PostPage;

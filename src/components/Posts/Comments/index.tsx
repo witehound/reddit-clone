@@ -168,7 +168,13 @@ const Comments: React.FC<CommentsProps> = ({
   }, []);
 
   return (
-    <Box bg="white" p={2} borderRadius="0px 0px 4px 4px">
+    <Box
+      bg="white"
+      p={2}
+      borderRadius="0px 0px 4px 4px"
+      border={"1px solid"}
+      borderColor={"gray.300"}
+    >
       <Flex
         direction="column"
         pl={10}

@@ -57,7 +57,8 @@ const usePosts = () => {
   const onSelectPost = (post: Post, postIdx: number) => {
     setPostStateValue((prev) => ({
       ...prev,
-      selectedPost: { ...post, postIdx },
+      // selectedPost: { ...post, postIdx },
+      selectedPost : post
     }));
     router.push(`/r/${post.communityId}/comments/${post.id}`);
   };

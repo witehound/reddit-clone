@@ -42,16 +42,19 @@ const CommentInput: React.FC<CommentInputProps> = ({
               bg: "white",
               border: "1px solid black",
             }}
+            zIndex={4}
           />
           <Flex
             position="absolute"
-            left="1px"
+            left="2.5px"
             right={0.1}
             bottom="1px"
             justify="flex-end"
             bg="gray.100"
             p="6px 8px"
             borderRadius="0px 0px 4px 4px"
+            width={"99%"}
+            zIndex={1}
           >
             <Button
               height="26px"
