@@ -19,7 +19,7 @@ type PostPageProps = {};
 const PostPage: React.FC<PostPageProps> = () => {
   const [user] = useAuthState(fireBaseAuth);
   const router = useRouter();
-  const { community, pid } = router.query;
+  const { communityId, pid } = router.query;
   const { communityStateValue } = useCommunities();
 
   const {
@@ -55,7 +55,7 @@ const PostPage: React.FC<PostPageProps> = () => {
   }, [router.query, postStateValue.selectedPost]);
 
   return (
-    <div style={{ backgroundColor: "#F0F8FF", width: "100%", height: "100vh" }}>
+    <div style={{ backgroundColor: "#F0F8FF", width: "100%" }}>
       <PageContentLayout>
         <>
           {loading ? (
@@ -81,7 +81,7 @@ const PostPage: React.FC<PostPageProps> = () => {
                   />
                   <Comments
                     user={user}
-                    community={community as string}
+                    community={communityId as string}
                     selectedPost={postStateValue.selectedPost}
                   />
                 </>
@@ -91,13 +91,15 @@ const PostPage: React.FC<PostPageProps> = () => {
         </>
 
         <>
-          {/* <About
-          communityData={
-            communityStateValue.currentCommunity
-            // communityStateValue.visitedCommunities[community as string]
-          }
-          loading={loading}
-        /> */}
+          {communityStateValue.currentCommunity ? (
+            <About
+              communityData={
+                communityStateValue.currentCommunity
+                // communityStateValue.visitedCommunities[communityId as string]
+              }
+              loading={loading}
+            />
+          ) : null}
         </>
       </PageContentLayout>
     </div>

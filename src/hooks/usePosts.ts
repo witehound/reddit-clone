@@ -63,7 +63,8 @@ const usePosts = () => {
     router.push(`/r/${post.communityId}/comments/${post.id}`);
   };
 
-  const onDeletePost = async (post: Post): Promise<boolean> => {
+  const onDeletePost = async ( post: Post): Promise<boolean> => {
+  
     try {
       if (post.imageURL) {
         const imageRef = ref(fireBaseStorage, `posts/${post.id}/image`);

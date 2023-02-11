@@ -67,7 +67,9 @@ const PostItem: React.FC<PostItemContentProps> = ({
       const success = await onDeletePost(post);
       if (!success) throw new Error("Failed to delete post");
 
-      if (router) router.back();
+      if (singlePostView) {
+        if (router) router.push(`/r/${post.communityId}`);
+      }
     } catch (error: any) {
       console.log("Error deleting post", error.message);
       setLoadingDelete(false);
