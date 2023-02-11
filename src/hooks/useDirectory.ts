@@ -32,7 +32,6 @@ const useDirectory = () => {
   };
 
   useEffect(() => {
-    const { communityId } = router.query;
 
       const existingCommunity = communityStateValue.currentCommunity;
       

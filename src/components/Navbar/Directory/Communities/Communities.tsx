@@ -9,11 +9,7 @@ import { CreateCommunityModal } from "@/src/components/Modal";
 import { fireBaseAuth } from "@/src/service";
 import MenuListItem from "./MenuListItem/MenuListItem";
 
-type CommunitiesProps = {
-  menuOpen: boolean;
-};
-
-const Communities: React.FC<CommunitiesProps> = ({ menuOpen }) => {
+const Communities = () => {
   const [user] = useAuthState(fireBaseAuth);
   const [open, setOpen] = useState(false);
   const mySnippets = useRecoilValue(communityState).mySnippets;

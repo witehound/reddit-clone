@@ -29,6 +29,7 @@ const useCommunities = () => {
   const router = useRouter()
 
   const gteMySnippets = async () => {
+
     setLoading(true);
     try {
       const mySnippets = await getDocs(

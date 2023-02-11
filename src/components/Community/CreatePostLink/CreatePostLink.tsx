@@ -1,3 +1,4 @@
+import useDirectory from "@/src/hooks/useDirectory";
 import { fireBaseAuth } from "@/src/service";
 import { Flex, Icon, Input } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -8,15 +9,13 @@ import { FaReddit } from "react-icons/fa";
 import { IoImageOutline } from "react-icons/io5";
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "../../atoms";
-// import useDirectory from "../../hooks/useDirectory";
 
 const CreatePostLink = () => {
   const router = useRouter();
   const [user] = useAuthState(fireBaseAuth);
   const setAuthModal = useSetRecoilState(authModalState);
-  //   const { toggleMenuOpen } = useDirectory();
+  const { toggleMenuOpen } = useDirectory();
   const onClick = () => {
-    // Could check for user to open auth modal before redirecting to submit
     if (!user) {
       setAuthModal({ open: true, view: "login" });
       return;
@@ -24,9 +23,10 @@ const CreatePostLink = () => {
     const { communityId } = router.query;
     if (communityId) {
       router.push(`/r/${communityId}/submit`);
+      return;
     }
-    // Open directory menu to select community to post to
-    // toggleMenuOpen();
+
+    toggleMenuOpen();
   };
   return (
     <Flex
