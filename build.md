@@ -22,4 +22,5 @@
  - [x] added th onDeletePost function in th usPost hook
  - [x] added useSelectFile custom hook 
  - [x] completed the onVote functionality in the usePosts hook
+ - [x] completed the communities modal
   
