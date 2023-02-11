@@ -23,11 +23,15 @@ import { useAuthState } from "react-firebase-hooks/auth";
 type CreateCommunityModalType = {
   open: boolean;
   handleClose: () => void;
+  isOpen?: boolean;
+  userId?: string;
 };
 
 const CreateCommunityModal = ({
   open,
   handleClose,
+  isOpen,
+  userId,
 }: CreateCommunityModalType) => {
   const [user] = useAuthState(fireBaseAuth);
   const [communityName, setCommunityName] = useState<string>("");

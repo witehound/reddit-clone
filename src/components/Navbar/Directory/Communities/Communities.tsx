@@ -1,27 +1,76 @@
-import { CreateCommunityModal } from "@/src/components/Modal";
-import { MenuItem, Flex, Icon } from "@chakra-ui/react";
-import { useState } from "react";
+import React, { useState } from "react";
+import { Box, Flex, Icon, MenuItem, Text } from "@chakra-ui/react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { FaReddit } from "react-icons/fa";
 import { GrAdd } from "react-icons/gr";
+import { useRecoilValue } from "recoil";
+import { communityState } from "../../../atoms/communitiesAtom";
+import { CreateCommunityModal } from "@/src/components/Modal";
+import { fireBaseAuth } from "@/src/service";
+import MenuListItem from "./MenuListItem/MenuListItem";
 
-const Communities = () => {
+type CommunitiesProps = {
+  menuOpen: boolean;
+};
+
+const Communities: React.FC<CommunitiesProps> = ({ menuOpen }) => {
+  const [user] = useAuthState(fireBaseAuth);
   const [open, setOpen] = useState(false);
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const mySnippets = useRecoilValue(communityState).mySnippets;
+
   return (
     <>
-      <CreateCommunityModal open={open} handleClose={handleClose} />
-      <MenuItem
-        width={"100%"}
-        fontSize={"10pt"}
-        _hover={{ bg: "gray.100" }}
-        onClick={() => setOpen(true)}
-      >
-        <Flex align={"center"}>
-          <Icon as={GrAdd} fontSize={18} mr={2} />
-          Create Community
-        </Flex>
-      </MenuItem>
+      <CreateCommunityModal
+        isOpen={open}
+        handleClose={() => setOpen(false)}
+        userId={user?.uid!}
+        open={false}
+      />
+
+      {mySnippets.find((item) => item.isModerator) && (
+        <Box mt={3} mb={4}>
+          <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
+            MODERATING
+          </Text>
+          {mySnippets
+            .filter((item) => item.isModerator)
+            .map((snippet) => (
+              <MenuListItem
+                key={snippet.communityId}
+                displayText={`r/${snippet.communityId}`}
+                link={`/r/${snippet.communityId}`}
+                icon={FaReddit}
+                iconColor="brand.100"
+              />
+            ))}
+        </Box>
+      )}
+      <Box mt={3} mb={4}>
+        <Text pl={3} mb={1} fontSize="7pt" fontWeight={500} color="gray.500">
+          MY COMMUNITIES
+        </Text>
+        <MenuItem
+          width="100%"
+          fontSize="10pt"
+          _hover={{ bg: "gray.100" }}
+          onClick={() => setOpen(true)}
+        >
+          <Flex alignItems="center">
+            <Icon fontSize={20} mr={2} as={GrAdd} />
+            Create Community
+          </Flex>
+        </MenuItem>
+        {mySnippets.map((snippet) => (
+          <MenuListItem
+            key={snippet.communityId}
+            icon={FaReddit}
+            displayText={`r/${snippet.communityId}`}
+            link={`/r/${snippet.communityId}`}
+            iconColor="blue.500"
+            imageURL={snippet.imageUrl}
+          />
+        ))}
+      </Box>
     </>
   );
 };
