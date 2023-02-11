@@ -55,7 +55,9 @@ const PostPage: React.FC<PostPageProps> = () => {
   }, [router.query, postStateValue.selectedPost]);
 
   return (
-    <div style={{ backgroundColor: "#F0F8FF", width: "100%" }}>
+    <div
+      style={{ backgroundColor: "#F0F8FF", width: "100%", minHeight: "100vh" }}
+    >
       <PageContentLayout>
         <>
           {loading ? (

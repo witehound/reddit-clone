@@ -22,7 +22,7 @@ import {
 import { useSetRecoilState } from "recoil";
 import { authModalState } from "../../atoms";
 import { Post, postState } from "../../atoms/postsAtoms";
-import { fireBaseStore } from "@/src/service";
+import { fireBaseAuth, fireBaseStore } from "@/src/service";
 import CommentInput from "./Inputs/Inputs";
 import CommentItem, { Comment } from "./CommentsItem/CommentsItem";
 
@@ -106,41 +106,40 @@ const Comments: React.FC<CommentsProps> = ({
     setCommentCreateLoading(false);
   };
 
-  //   const onDeleteComment = useCallback(
-  //     async (comment: Comment) => {
-  //       setDeleteLoading(comment.id as string);
-  //       try {
-  //         if (!comment.id) throw "Comment has no ID";
-  //         const batch = writeBatch(firestore);
-  //         const commentDocRef = doc(firestore, "comments", comment.id);
-  //         batch.delete(commentDocRef);
+  const onDeleteComment = useCallback(
+    async (comment: Comment) => {
+      setDeleteLoading(comment.id as string);
+      try {
+        if (!comment.id) throw "Comment has no ID";
+        const batch = writeBatch(fireBaseStore);
+        const commentDocRef = doc(fireBaseStore, "comments", comment.id);
+        batch.delete(commentDocRef);
 
-  //         batch.update(doc(firestore, "posts", comment.postId), {
-  //           numberOfComments: increment(-1),
-  //         });
+        batch.update(doc(fireBaseStore, "posts", comment.postId), {
+          numberOfComments: increment(-1),
+        });
 
-  //         await batch.commit();
+        await batch.commit();
 
-  //         setPostState((prev) => ({
-  //           ...prev,
-  //           selectedPost: {
-  //             ...prev.selectedPost,
-  //             numberOfComments: prev.selectedPost?.numberOfComments! - 1,
-  //           } as Post,
-  //           postUpdateRequired: true,
-  //         }));
+        setPostState((prev) => ({
+          ...prev,
+          selectedPost: {
+            ...prev.selectedPost,
+            numberOfComments: prev.selectedPost?.numberOfComments! - 1,
+          } as Post,
+          postUpdateRequired: true,
+        }));
 
-  //         setComments((prev) => prev.filter((item) => item.id !== comment.id));
-  //         // return true;
-  //       } catch (error: any) {
-  //         console.log("Error deletig comment", error.message);
-  //         // return false;
-  //       }
-  //       setDeleteLoading("");
-  //     }
-  //     ,
-  //     [setComments, setPostState]
-  //   );
+        setComments((prev) => prev.filter((item) => item.id !== comment.id));
+        // return true;
+      } catch (error: any) {
+        console.log("Error deletig comment", error.message);
+        // return false;
+      }
+      setDeleteLoading("");
+    },
+    [setComments, setPostState]
+  );
 
   const getPostComments = async () => {
     try {
@@ -211,7 +210,7 @@ const Comments: React.FC<CommentsProps> = ({
                   <CommentItem
                     key={item.id}
                     comment={item}
-                    onDeleteComment={() => {}}
+                    onDeleteComment={onDeleteComment}
                     isLoading={deleteLoading === (item.id as string)}
                     userId={user?.uid}
                   />
