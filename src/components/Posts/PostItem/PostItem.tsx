@@ -78,8 +78,8 @@ const PostItem: React.FC<PostItemContentProps> = ({
     <Flex
       border="1px solid"
       bg="white"
-      borderColor={"gray.300"}
-      borderRadius={singlePostView ? "4px 4px 0px 0px" : 4}
+      borderColor={singlePostView ? "white" : "gray.300"}
+      borderRadius={singlePostView ? "4px 4px 0px 0px" : "4px"}
       cursor={singlePostView ? "unset" : "pointer"}
       _hover={{ borderColor: singlePostView ? "none" : "gray.500" }}
       onClick={() => onSelectPost && onSelectPost(post, postIdx!)}
