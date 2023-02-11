@@ -167,7 +167,7 @@ const Comments: React.FC<CommentsProps> = ({
 
   useEffect(() => {
     getPostComments();
-  }, []);
+  }, [user]);
 
   return (
     <Box
