@@ -3,14 +3,13 @@ import PageContent from "@/src/components/Layout/PageContent";
 import { Box, Text } from "@chakra-ui/react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { fireBaseAuth } from "@/src/service";
-import { useRouter } from "next/router";
-import { useRecoilValue } from "recoil";
-import { communityState } from "@/src/components/atoms/communitiesAtom";
+import useCommunities from "@/src/hooks/useCommunity";
+import About from "@/src/components/Community/About/About";
 
 const Submit = () => {
   const [user] = useAuthState(fireBaseAuth);
+  const { communityStateValue } = useCommunities();
 
-  const { currentCommunity } = useRecoilValue(communityState);
   return (
     <div style={{ backgroundColor: "#F0F8FF", width: "100%", height: "100vh" }}>
       <PageContent>
@@ -21,10 +20,17 @@ const Submit = () => {
             </Text>
           </Box>
           {user && (
-            <NewPostForm user={user} communityId={currentCommunity?.id} />
+            <NewPostForm
+              user={user}
+              communityId={communityStateValue.currentCommunity?.id}
+            />
           )}
         </>
-        <></>
+        <>
+          {communityStateValue.currentCommunity ? (
+            <About communityData={communityStateValue.currentCommunity} />
+          ) : null}
+        </>
       </PageContent>
     </div>
   );

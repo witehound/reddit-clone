@@ -24,7 +24,7 @@ import { authModalState } from "../../atoms";
 import { Post, postState } from "../../atoms/postsAtoms";
 import { fireBaseStore } from "@/src/service";
 import CommentInput from "./Inputs/Inputs";
-import CommentItem from "./CommentsItem/CommentsItem";
+import CommentItem, { Comment } from "./CommentsItem/CommentsItem";
 
 type CommentsProps = {
   user?: User | null;
@@ -52,23 +52,22 @@ const Comments: React.FC<CommentsProps> = ({
     }
 
     setCommentCreateLoading(true);
+
     try {
       const batch = writeBatch(fireBaseStore);
 
-      // Create comment document
       const commentDocRef = doc(collection(fireBaseStore, "comments"));
-      //   batch.set(commentDocRef, {
-      //     postId: selectedPost.id,
-      //     creatorId: user.uid,
-      //     creatorDisplayText: user.email!.split("@")[0],
-      //     creatorPhotoURL: user.photoURL,
-      //     communityId: community,
-      //     text: comment,
-      //     postTitle: selectedPost.title,
-      //     createdAt: serverTimestamp(),
-      //   } as Comment);
+      batch.set(commentDocRef, {
+        postId: selectedPost.id,
+        creatorId: user.uid,
+        creatorDisplayText: user.email!.split("@")[0],
+        creatorPhotoURL: user.photoURL,
+        communityId: community,
+        text: comment,
+        postTitle: selectedPost.title,
+        createdAt: serverTimestamp(),
+      } as Comment);
 
-      // Update post numberOfComments
       batch.update(doc(fireBaseStore, "posts", selectedPost.id), {
         numberOfComments: increment(1),
       });
@@ -76,24 +75,23 @@ const Comments: React.FC<CommentsProps> = ({
 
       setComment("");
       const { id: postId, title } = selectedPost;
-      //   setComments((prev) => [
-      //     {
-      //       id: commentDocRef.id,
-      //       creatorId: user.uid,
-      //       creatorDisplayText: user.email!.split("@")[0],
-      //       creatorPhotoURL: user.photoURL,
-      //       communityId: community,
-      //       postId,
-      //       postTitle: title,
-      //       text: comment,
-      //       createdAt: {
-      //         seconds: Date.now() / 1000,
-      //       },
-      //     } as Comment,
-      //     ...prev,
-      //   ]);
+      setComments((prev) => [
+        {
+          id: commentDocRef.id,
+          creatorId: user.uid,
+          creatorDisplayText: user.email!.split("@")[0],
+          creatorPhotoURL: user.photoURL,
+          communityId: community,
+          postId,
+          postTitle: title,
+          text: comment,
+          createdAt: {
+            seconds: Date.now() / 1000,
+          },
+        } as Comment,
+        ...prev,
+      ]);
 
-      // Fetch posts again to update number of comments
       setPostState((prev) => ({
         ...prev,
         selectedPost: {
@@ -152,11 +150,15 @@ const Comments: React.FC<CommentsProps> = ({
         orderBy("createdAt", "desc")
       );
       const commentDocs = await getDocs(commentsQuery);
-      const comments = commentDocs.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-      //   setComments(comments as Comment[]);
+      const comments = commentDocs.docs.map(
+        (doc) =>
+          ({
+            id: doc.id,
+            ...doc.data(),
+          } as Comment)
+      );
+
+      setComments(comments);
     } catch (error: any) {
       console.log("getPostComments error", error.message);
     }
@@ -205,15 +207,15 @@ const Comments: React.FC<CommentsProps> = ({
           <>
             {!!comments.length ? (
               <>
-                {/* {comments.map((item: Comment) => (
+                {comments.map((item: Comment) => (
                   <CommentItem
                     key={item.id}
                     comment={item}
-                    onDeleteComment={onDeleteComment}
+                    onDeleteComment={() => {}}
                     isLoading={deleteLoading === (item.id as string)}
                     userId={user?.uid}
                   />
-                ))} */}
+                ))}
               </>
             ) : (
               <Flex

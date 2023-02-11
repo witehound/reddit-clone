@@ -42,7 +42,6 @@ const CommentInput: React.FC<CommentInputProps> = ({
               bg: "white",
               border: "1px solid black",
             }}
-            zIndex={4}
           />
           <Flex
             position="absolute"
@@ -54,13 +53,14 @@ const CommentInput: React.FC<CommentInputProps> = ({
             p="6px 8px"
             borderRadius="0px 0px 4px 4px"
             width={"99%"}
-            zIndex={1}
           >
             <Button
               height="26px"
               disabled={!comment.length}
               isLoading={loading}
-              onClick={() => onCreateComment(comment)}
+              onClick={() => {
+                onCreateComment(comment);
+              }}
             >
               Comment
             </Button>
