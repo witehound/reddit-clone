@@ -19,6 +19,8 @@ import { BsFillEyeFill, BsFillPersonFill } from "react-icons/bs";
 import { doc, runTransaction, serverTimestamp } from "firebase/firestore";
 import { fireBaseAuth, fireBaseStore } from "@/src/service";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useRouter } from "next/router";
+import useDirectory from "@/src/hooks/useDirectory";
 
 type CreateCommunityModalType = {
   open: boolean;
@@ -39,6 +41,10 @@ const CreateCommunityModal = ({
   const [communityType, setCommunityType] = useState<any>("public");
   const [nameError, setNameError] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const { toggleMenuOpen } = useDirectory();
+
+  const router = useRouter();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 21) return;
@@ -90,6 +96,8 @@ const CreateCommunityModal = ({
         );
       });
       handleClose();
+      toggleMenuOpen();
+      router.push(`r/${communityName}`);
     } catch (err: any) {
       console.log(`[handleCreateCommunity erropr : ${err}]`);
       setNameError(err.message);
