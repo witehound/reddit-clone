@@ -18,11 +18,9 @@ const SearchInput = ({ user }: SearchInputProps) => {
       ml={"2"}
     >
       <InputGroup>
-        <InputLeftElement
-          pointerEvents="none"
-          height={"100%"}
-          children={<SearchIcon color="gray.400" />}
-        />
+        <InputLeftElement pointerEvents="none" height={"100%"}>
+          <SearchIcon color="gray.400" />
+        </InputLeftElement>
         <Input
           fontSize={"10pt"}
           border={".5px solid"}
