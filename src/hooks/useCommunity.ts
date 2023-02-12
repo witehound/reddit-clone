@@ -133,7 +133,8 @@ const useCommunities = () => {
     if (!user) {
       setCommunityStateValue(prev => ({
         ...prev,
-        mySnippets : []
+        mySnippets: [],
+        initSnippetsFetched : false
       }))
       return
     } 

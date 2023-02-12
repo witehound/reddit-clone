@@ -26,6 +26,7 @@ import PageContent from "../components/Layout/PageContent";
 import Recommendations from "../components/Community/Recommendations/Recommendations";
 import Premium from "../components/Community/Premium/Premium";
 import PersonalHome from "../components/Community/PersonalHome/PersonalHome";
+import useCommunities from "../hooks/useCommunity";
 
 const Home: NextPage = () => {
   const [user, loadingUser] = useAuthState(fireBaseAuth);
@@ -38,7 +39,7 @@ const Home: NextPage = () => {
     loading,
     setLoading,
   } = usePosts();
-  const communityStateValue = useRecoilValue(communityState);
+  const { communityStateValue } = useCommunities();
 
   const getUserHomePosts = async () => {
     setLoading(true);
