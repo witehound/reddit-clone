@@ -41,6 +41,7 @@ const useCommunities = () => {
       setCommunityStateValue((prev) => ({
         ...prev,
         mySnippets: snippets as CommunitySnippet[],
+        initSnippetsFetched : true
       }));
     } catch (error: any) {
       console.log(`[geMySnippet] :${error}`);

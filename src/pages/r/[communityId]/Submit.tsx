@@ -23,6 +23,7 @@ const Submit = () => {
             <NewPostForm
               user={user}
               communityId={communityStateValue.currentCommunity?.id}
+              communityImageURL={communityStateValue.currentCommunity?.imageUrl}
             />
           )}
         </>

@@ -153,14 +153,13 @@ const Home: NextPage = () => {
     return () => unsubscribe();
   };
 
-  // useEffect(() => {
+  useEffect(() => {
+    if (!communityStateValue.initSnippetsFetched) return;
 
-  //   if (!communityStateValue.initSnippetsFetched) return;
-
-  //   if (user) {
-  //     getUserHomePosts();
-  //   }
-  // }, [user, communityStateValue.initSnippetsFetched]);
+    if (user) {
+      getUserHomePosts();
+    }
+  }, [user, communityStateValue.initSnippetsFetched]);
 
   useEffect(() => {
     if (!user && !loadingUser) {
@@ -172,7 +171,6 @@ const Home: NextPage = () => {
     if (!user?.uid || !postStateValue.posts.length) return;
     getUserPostVotes();
 
-    // Clear postVotes on dismount
     return () => {
       setPostStateValue((prev) => ({
         ...prev,

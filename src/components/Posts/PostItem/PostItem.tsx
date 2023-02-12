@@ -131,6 +131,7 @@ const PostItem: React.FC<PostItemContentProps> = ({
                       boxSize="18px"
                       src={post.communityImageURL}
                       mr={2}
+                      objectFit="cover"
                     />
                   ) : (
                     <Icon as={FaReddit} fontSize={18} mr={1} color="blue.500" />
