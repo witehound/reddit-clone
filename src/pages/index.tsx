@@ -74,9 +74,7 @@ const Home: NextPage = () => {
           })) as Post[];
           feedPosts.push(...posts);
         });
-      }
-      // User has not joined any communities yet
-      else {
+      } else {
         console.log("USER HAS NO COMMUNITIES - GETTING GENERAL POSTS");
 
         const postQuery = query(
