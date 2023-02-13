@@ -8,6 +8,8 @@ type SearchInputProps = {
   user: User | null | undefined;
 };
 
+//
+
 const SearchInput = ({ user }: SearchInputProps) => {
   return (
     <Flex
