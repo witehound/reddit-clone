@@ -47,6 +47,6 @@ const SearchInput = ({ user }: SearchInputProps) => {
   );
 };
 
-//
+
 
 export default SearchInput;
