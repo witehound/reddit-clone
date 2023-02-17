@@ -46,6 +46,5 @@ const SearchInput = ({ user }: SearchInputProps) => {
     </Flex>
   );
 };
-//
 
 export default SearchInput;
