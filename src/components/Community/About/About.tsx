@@ -15,7 +15,7 @@ import {
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import { RiCakeLine } from "react-icons/ri";
 import Link from "next/link";
-import { useRouter } from "next/router";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { Community, communityState } from "../../atoms/communitiesAtom";
 import moment from "moment";
