@@ -37,7 +37,6 @@ const OauthButtons = () => {
         mr={2}
         handleClick={() => signInWithGoogle()}
         mb={2}
-        width="100%"
         varient="oauth"
         isLoading={loading}
       >
